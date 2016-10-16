@@ -1,0 +1,43 @@
+part 2 sql
+
+2장 sql
+
+create table tbl_board(
+bno INT NOT NULL AUTO_INCREMENT,
+title VARCHAR(200) NOT NULL,
+content TEXT NULL,
+writer VARCHAR(50) NOT NULL,
+regdate TIMESTAMP NOT NULL DEFAULT now(),
+viewcnt INT DEFAULT 0,
+PRIMARY KEY (bno)
+);
+
+insert into tbl_board(title, content, writer)
+values('제목데스','내용데스','user00');
+
+select *
+from tbl_board
+where bno > 0
+order by bno desc;
+
+update tbl_board set title='this is an updated title' where bno=1;
+
+delete from tbl_board where bno =1;
+
+
+
+----------------------
+Part 3. 덧글 테이블
+
+create table tbl_reply (
+rno int NOT NULL auto_increment,
+bno int not null default 0,
+replytext varchar(1000) not null,
+replyer varchar(50) not null,
+regdate timestamp not null default now(),
+updatedate timestamp not null default now(),
+primary key(rno)
+);
+
+alter table tbl_reply add constraint fk_board
+foreign key (bno) references tbl_board (bno);
